@@ -1,7 +1,6 @@
 {
   "name": "thecubicle/laravel-queue-gc-pub-sub",
   "description": "Laravel queue driver for Google Cloud PubSub",
-  "version": "1.0",
   "license": "MIT",
   "authors": [
     {
