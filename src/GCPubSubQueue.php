@@ -30,6 +30,7 @@ class GCPubSubQueue extends Queue implements QueueContract
      * GCPubSubQueue constructor.
      *
      * @param \Google\Cloud\PubSub\PubSubClient $pubSub
+     * @param $config
      */
     public function __construct(PubSubClient $pubSub, $config)
     {
@@ -43,7 +44,7 @@ class GCPubSubQueue extends Queue implements QueueContract
     {
         // TODO: Implement size() method
         $subscription = $this->getSubscription($queue);
-        return count(iterator_to_array($subscription->pull()));
+        return count($subscription->pull());
     }
 
     private function getSubscription($queue = null)
@@ -85,9 +86,14 @@ class GCPubSubQueue extends Queue implements QueueContract
     public function later($delay, $job, $data = '', $queue = null)
     {
         // TODO: Implement later() method.
-
     }
 
+    /**
+     * Pop the next job off of the queue.
+     *
+     * @param  string  $queue
+     * @return \Illuminate\Contracts\Queue\Job|null
+     */
     public function pop($queue = null)
     {
         $subscription = $this->getSubscription($queue);
@@ -97,7 +103,8 @@ class GCPubSubQueue extends Queue implements QueueContract
             'maxMessages' => 1
         ];
 
-        $messages = iterator_to_array($subscription->pull($pullOptions));
+        $messages = $subscription->pull($pullOptions);
+
         if (count($messages) > 0) {
             $subscription->modifyAckDeadline($messages[0], $this->defaultTTL);
             return new GCPubSubJob(
@@ -108,5 +115,7 @@ class GCPubSubQueue extends Queue implements QueueContract
                 $messages[0]
             );
         }
+
+        return null;
     }
 }

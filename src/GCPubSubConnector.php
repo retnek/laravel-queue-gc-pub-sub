@@ -7,7 +7,6 @@ use Illuminate\Queue\Connectors\ConnectorInterface;
 
 class GCPubSubConnector implements ConnectorInterface
 {
-
     /**
      * @param array $config
      * @return mixed

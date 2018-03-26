@@ -8,6 +8,16 @@
       "email": "taprice@thecubicle.ca"
     }
   ],
+  "require": {
+    "illuminate/support": "5.6.*",
+    "illuminate/queue": "5.6.*",
+    "laravel/lumen-framework": "^5.6",
+    "google/cloud-pubsub": "^1.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6.5",
+    "vlucas/phpdotenv": "^2.4"
+  },
   "autoload": {
     "psr-4": {
       "thecubicle\\GCPubSub\\": "src/"
@@ -18,13 +28,7 @@
       "thecubicle\\GCPubSub\\Test\\": "tests/"
     }
   },
-  "require": {
-    "illuminate/support": "^5.2",
-    "illuminate/queue": "^5.2",
-    "google/cloud": "^0.20.0"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "^5.7",
-    "vlucas/phpdotenv": "^2.4"
+  "suggest": {
+    "laravel/lumen-framework": "To test the Lumen bindings"
   }
 }

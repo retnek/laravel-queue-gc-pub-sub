@@ -4,13 +4,11 @@ namespace thecubicle\GCPubSub;
 
 use Illuminate\Support\ServiceProvider;
 
-class GCPubSubServiceProvider extends ServiceProvider {
-
+class GCPubSubServiceProvider extends ServiceProvider
+{
     public function register()
     {
-        $this->mergeConfigFrom(
-            __DIR__.'/../config/gcpubsub.php', 'queue.connections.gcpubsub'
-        );
+        $this->mergeConfigFrom(__DIR__ . '/../config/gcpubsub.php', 'queue.connections.gcpubsub');
     }
 
     /**
@@ -26,9 +24,17 @@ class GCPubSubServiceProvider extends ServiceProvider {
         });
 
         $this->publishes([
-            __DIR__.'../../gcpusub.php' => config_path('gcpubsub.php'),
+            __DIR__.'../../gcpusub.php' => app()->basePath() . '/config/gcpubsub.php'
         ]);
     }
+
+    /**
+     * Decides wheter the current app is lumen.
+     *
+     * @return bool
+     */
+    protected function isLumen()
+    {
+        return str_contains($this->app->version(), 'Lumen');
+    }
 }
-
-

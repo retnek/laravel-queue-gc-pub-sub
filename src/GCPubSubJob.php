@@ -19,13 +19,12 @@ class GCPubSubJob extends Job implements JobContract
         $queue,
         $subscription,
         $job
-    )
-    {
+    ) {
         $this->pubSub = $pubSub;
         $this->job = $job;
         $this->queue = $queue;
         $this->container = $container;
-        $this->subscription = $this->pubSub->subscription($subscription, $this->queue);;
+        $this->subscription = $this->pubSub->subscription($subscription, $this->queue);
     }
 
     /**
@@ -60,5 +59,15 @@ class GCPubSubJob extends Job implements JobContract
         parent::release($delay);
 
         $this->subscription->modifyAckDeadline($this->job, $delay);
+    }
+
+    /**
+     * Get the job identifier.
+     *
+     * @return string
+     */
+    public function getJobId()
+    {
+        // TODO: Implement getJobId() method.
     }
 }
