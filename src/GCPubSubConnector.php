@@ -9,7 +9,7 @@ class GCPubSubConnector implements ConnectorInterface
 {
     /**
      * @param array $config
-     * @return mixed
+     * @return GCPubSubQueue
      */
     public function connect(array $config)
     {

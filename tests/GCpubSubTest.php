@@ -2,9 +2,13 @@
 
 namespace Websight\GcsProvider\Tests;
 
+use Illuminate\Container\Container;
 use PHPUnit\Framework\TestCase;
 use Laravel\Lumen\Application;
 use Illuminate\Config\Repository;
+use Psr\Log\NullLogger;
+use thecubicle\GCPubSub\GCPubSubConnector;
+use thecubicle\GCPubSub\GCPubSubJob;
 use thecubicle\GCPubSub\GCPubSubServiceProvider;
 
 class GCpubSubTest extends TestCase
@@ -51,6 +55,29 @@ class GCpubSubTest extends TestCase
 
     public function testQueuePush()
     {
+        $connector = new GCPubSubConnector();
+        $queue = $connector->connect([
+            'projectId' => $_ENV['projectId'],
+            'keyFilePath' => __DIR__ . '/../' . $_ENV['keyFilePath'],
+            'defaultTopic' => $_ENV['defaultTopic'],
+            'defaultSubscription' => $_ENV['defaultSubscription'],
+            'default_ttl' => 0
+        ]);
+        $queue->setContainer($this->createDummyContainer());
 
+        $queue->pushRaw('anydata');
+
+        $job = $queue->pop();
+        $this->assertInstanceOf(GCPubSubJob::class, $job);
+
+        $job->delete();
+    }
+
+    protected function createDummyContainer()
+    {
+        $container = new Container();
+        $container['log'] = new NullLogger();
+
+        return $container;
     }
 }

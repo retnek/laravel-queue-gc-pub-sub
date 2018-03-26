@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit colors="true" bootstrap="vendor/autoload.php" colors="true" forceCoversAnnotation="false">
+<phpunit colors="true" bootstrap="vendor/autoload.php" forceCoversAnnotation="false">
     <testsuites>
         <testsuite name="Laravel Queue GC PubSub Tests">
             <directory>./tests</directory>
         </testsuite>
     </testsuites>
+    <php>
+        <env name="projectId" value="nuaxia-backend-v2"/>
+        <env name="keyFilePath" value="nuaxia-backend-v2-service-account.json"/>
+        <env name="defaultTopic" value="projects/nuaxia-backend-v2/topics/portal-dev-queue"/>
+        <env name="defaultSubscription" value="projects/nuaxia-backend-v2/subscriptions/portal-dev-queue-sub"/>
+    </php>
 </phpunit>

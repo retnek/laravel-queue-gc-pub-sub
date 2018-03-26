@@ -35,8 +35,8 @@ class GCPubSubQueue extends Queue implements QueueContract
     public function __construct(PubSubClient $pubSub, $config)
     {
         $this->pubSub = $pubSub;
-        $this->defaultTopic = $config['default_topic'];
-        $this->defaultSubscription = $config['default_subscription'];
+        $this->defaultTopic = $config['defaultTopic'];
+        $this->defaultSubscription = $config['defaultSubscription'];
         $this->defaultTTL = $config['default_ttl'];
     }
 
